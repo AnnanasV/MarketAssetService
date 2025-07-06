@@ -1,5 +1,7 @@
+using MarketAssetService.Application.Interfaces;
 using MarketAssetService.Domain;
 using MarketAssetService.Infrastructure;
+using MarketAssetService.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace MarketAssetService.API
@@ -11,6 +13,9 @@ namespace MarketAssetService.API
             var builder = WebApplication.CreateBuilder(args);
 
             builder.WebHost.UseUrls("http://0.0.0.0:5050");
+
+            builder.Services.AddMemoryCache();
+            builder.Services.AddHttpClient<IAuthService, AuthService>();
 
             builder.Services.AddControllers();
 
