@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: MarketAssetDb
+    ports:
+      - "5432:5432"
+    networks:
+      - market-network
+
+  market-api:
+    container_name: market-api
+    build:
+      context: .
+      dockerfile: MarketAssetService.API/Dockerfile
+    ports:
+      - "5050:5050"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - postgres
+    networks:
+      - market-network
+
+networks:
+  market-network:
