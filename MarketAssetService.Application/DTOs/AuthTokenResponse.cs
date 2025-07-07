@@ -1,8 +1,12 @@
-﻿namespace MarketAssetService.Application.DTOs;
+﻿using System.Text.Json.Serialization;
+
+namespace MarketAssetService.Application.DTOs;
 
 public class AuthTokenResponse
 {
-    public string Access_Token { get; set; } = string.Empty;
-    public string Refresh_Token { get; set; } = string.Empty;
+    [JsonPropertyName("access_token")]
+    public string Access_Token { get; set; }
+
+    [JsonPropertyName("expires_in")]
     public int Expires_In { get; set; }
 }

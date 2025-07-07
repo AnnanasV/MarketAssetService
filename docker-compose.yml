@@ -17,7 +17,7 @@ services:
       context: .
       dockerfile: MarketAssetService.API/Dockerfile
     ports:
-      - "5050:5050"
+      - "5055:5055"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:

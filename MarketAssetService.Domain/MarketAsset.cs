@@ -2,8 +2,8 @@
 
 public class MarketAsset
 {
-    public int Id { get; set; }
-    public string Symbol { get; set; } = string.Empty;
-    public string Name { get; set; } = string.Empty;
-    public List<AssetPrice> Prices { get; set; } = new();
+    public string Id { get; set; }
+    public string Symbol { get; set; }
+    public string Description { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
