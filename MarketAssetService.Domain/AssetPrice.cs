@@ -2,11 +2,12 @@
 
 public class AssetPrice
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public Guid AssetId { get; set; }
     public MarketAsset Asset { get; set; } = null!;
 
+    public string Symbol { get; set; }
     public decimal Price { get; set; }
 
     public DateTime Timestamp { get; set; }

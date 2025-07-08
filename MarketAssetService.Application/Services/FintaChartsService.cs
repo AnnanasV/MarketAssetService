@@ -61,7 +61,7 @@ public class FintaChartsService : IFintaChartsService
     }
 
 
-    public async Task<HistoricalPriceDto?> GetLatestPriceAsync(string instrumentId, string provider = "oanda")
+    public async Task<HistoricalPriceDto?> GetLatestPriceAsync(Guid instrumentId, string provider = "oanda")
     {
         var token = await _authService.GetAccessTokenAsync();
 

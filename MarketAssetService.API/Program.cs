@@ -1,6 +1,7 @@
 using MarketAssetService.Application.Interfaces;
 using MarketAssetService.Domain;
 using MarketAssetService.Infrastructure;
+using MarketAssetService.Infrastructure.Repositories;
 using MarketAssetService.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +26,9 @@ namespace MarketAssetService.API
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IFintaChartsService, FintaChartsService>();
 
+            builder.Services.AddScoped<IMarketAssetRepository, AssetRepository>();
+            builder.Services.AddScoped<IAssetPriceRepository, AssetPriceRepository>();
+
             builder.Services.AddControllers();
 
             builder.Services.AddDbContext<AppDbContext>(options =>
@@ -32,6 +36,12 @@ namespace MarketAssetService.API
 
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                db.Database.Migrate();
+            }
 
             //app.UseHttpsRedirection();
 

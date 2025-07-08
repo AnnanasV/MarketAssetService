@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MarketAssetService.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250706151555_InitialCreate")]
+    [Migration("20250708112453_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,37 +27,40 @@ namespace MarketAssetService.Infrastructure.Migrations
 
             modelBuilder.Entity("MarketAssetService.Domain.AssetPrice", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("MarketAssetId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("AssetId")
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MarketAssetId");
+                    b.HasIndex("AssetId");
 
                     b.ToTable("AssetPrices");
                 });
 
             modelBuilder.Entity("MarketAssetService.Domain.MarketAsset", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -72,13 +75,13 @@ namespace MarketAssetService.Infrastructure.Migrations
 
             modelBuilder.Entity("MarketAssetService.Domain.AssetPrice", b =>
                 {
-                    b.HasOne("MarketAssetService.Domain.MarketAsset", "MarketAsset")
+                    b.HasOne("MarketAssetService.Domain.MarketAsset", "Asset")
                         .WithMany("Prices")
-                        .HasForeignKey("MarketAssetId")
+                        .HasForeignKey("AssetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("MarketAsset");
+                    b.Navigation("Asset");
                 });
 
             modelBuilder.Entity("MarketAssetService.Domain.MarketAsset", b =>
