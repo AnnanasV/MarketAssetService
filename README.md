@@ -19,7 +19,7 @@
 
 ### 1. Clone repository
 ```bash
-git clone https://github.com/Annanas_V/MarketAssetService.git
+git clone https://github.com/AnnanasV/MarketAssetService.git
 cd MarketAssetService
 ```
 
