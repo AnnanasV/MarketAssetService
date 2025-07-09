@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using MarketAssetService.Domain;
+using System.Text.Json.Serialization;
 
 namespace MarketAssetService.Application.DTOs;
 
@@ -12,4 +13,6 @@ public class FintaInstrumentDto
 
     [JsonPropertyName("description")]
     public string Description { get; set; }
+    
+    public Dictionary<string, AssetMapping> Mappings { get; set; } = new();
 }

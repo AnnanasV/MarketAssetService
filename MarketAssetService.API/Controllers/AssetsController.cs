@@ -73,7 +73,7 @@ public class AssetsController : ControllerBase
             return NotFound($"No price data found for '{symbol}' from FintaCharts.");
 
         var existingPrice = await _priceRepository.GetLatestAsync(asset.Id);
-        if (existingPrice is null || existingPrice.Timestamp != priceDto.Timestamp)
+        if (existingPrice is null)
         {
             var price = new AssetPrice
             {
@@ -83,7 +83,7 @@ public class AssetsController : ControllerBase
                 Timestamp = priceDto.Timestamp.ToUniversalTime()
             };
 
-            await _priceRepository.AddAsync(price);
+            await _priceRepository.AddOrUpdateAsync(price);
         }
 
         return Ok(new

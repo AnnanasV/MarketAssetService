@@ -19,9 +19,23 @@ public class AssetPriceRepository : IAssetPriceRepository
             .OrderByDescending(p => p.Timestamp)
             .FirstOrDefaultAsync();
 
-    public async Task AddAsync(AssetPrice price)
+    public async Task AddOrUpdateAsync(AssetPrice price)
     {
-        _context.AssetPrices.Add(price);
+        var latest = await GetLatestAsync(price.AssetId);
+
+        if (latest == null)
+        {
+            await _context.AssetPrices.AddAsync(price);
+        }
+        else
+        {
+            latest.Price = price.Price;
+            latest.Symbol = price.Symbol;
+            latest.Timestamp = price.Timestamp.ToUniversalTime();
+            // Update existing price with new values
+            _context.AssetPrices.Update(latest);
+        }
+
         await _context.SaveChangesAsync();
     }
 }

@@ -1,5 +1,5 @@
 using MarketAssetService.Application.Interfaces;
-using MarketAssetService.Domain;
+using MarketAssetService.Application.Services;
 using MarketAssetService.Infrastructure;
 using MarketAssetService.Infrastructure.Repositories;
 using MarketAssetService.Infrastructure.Services;
@@ -28,6 +28,9 @@ namespace MarketAssetService.API
 
             builder.Services.AddScoped<IMarketAssetRepository, AssetRepository>();
             builder.Services.AddScoped<IAssetPriceRepository, AssetPriceRepository>();
+            builder.Services.AddScoped<IAssetSyncService, AssetSyncService>();
+
+            builder.Services.AddHostedService<FintaWebSocketService>();
 
             builder.Services.AddControllers();
 

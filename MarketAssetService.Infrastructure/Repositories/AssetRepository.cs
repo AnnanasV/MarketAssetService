@@ -21,8 +21,10 @@ public class AssetRepository : IMarketAssetRepository
             .Include(a => a.Prices)
             .FirstOrDefaultAsync(a => a.Symbol.ToLower() == symbol.ToLower());
 
-    public async Task<bool> ExistsAsync(string symbol)
-        => await _context.MarketAssets.AnyAsync(a => a.Symbol.ToLower() == symbol.ToLower());
+    public async Task<MarketAsset?> GetByIdAsync(Guid id)
+        => await _context.MarketAssets
+            .Include(a => a.Prices)
+            .FirstOrDefaultAsync(a => a.Id == id);
 
     public async Task AddOrUpdateAsync(MarketAsset asset)
     {

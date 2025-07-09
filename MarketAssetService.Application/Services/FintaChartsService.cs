@@ -49,11 +49,24 @@ public class FintaChartsService : IFintaChartsService
 
         foreach (var item in dataElement.EnumerateArray())
         {
+            var mappings = new Dictionary<string, AssetMapping>();
+            if (item.TryGetProperty("mappings", out var mapEl) && mapEl.ValueKind == JsonValueKind.Object)
+            {
+                foreach (var map in mapEl.EnumerateObject())
+                {
+                    if (map.Value.TryGetProperty("symbol", out var symbolProp))
+                    {
+                        mappings[map.Name] = new AssetMapping { Symbol = symbolProp.GetString() ?? "" };
+                    }
+                }
+            }
+
             instruments.Add(new FintaInstrumentDto
             {
                 Id = item.GetProperty("id").GetString()!,
                 Symbol = item.GetProperty("symbol").GetString()!,
-                Description = item.GetProperty("description").GetString()!
+                Description = item.GetProperty("description").GetString()!,
+                Mappings = mappings
             });
         }
 

@@ -6,6 +6,6 @@ public interface IMarketAssetRepository
 {
     Task<IEnumerable<MarketAsset>> GetAllAsync();
     Task<MarketAsset?> GetBySymbolAsync(string symbol);
-    Task<bool> ExistsAsync(string symbol);
+    Task<MarketAsset?> GetByIdAsync(Guid id);
     Task AddOrUpdateAsync(MarketAsset asset);
 }

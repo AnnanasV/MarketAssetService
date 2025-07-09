@@ -9,4 +9,7 @@ public class HistoricalPriceDto
 
     [JsonPropertyName("close")]
     public decimal Price { get; init; }
+
+    [JsonPropertyName("symbol")]
+    public string Symbol { get; set; }
 }
