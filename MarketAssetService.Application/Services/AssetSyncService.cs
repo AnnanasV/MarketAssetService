@@ -5,6 +5,9 @@ using Microsoft.Extensions.Logging;
 
 namespace MarketAssetService.Application.Services;
 
+/// <summary>
+/// Service responcible for synchronizing market assets with the Finta API.
+/// </summary>
 public class AssetSyncService : IAssetSyncService
 {
     private readonly ILogger<AssetSyncService> _logger;
@@ -16,6 +19,10 @@ public class AssetSyncService : IAssetSyncService
         _scopeFactory = scopeFactory;
     }
 
+    /// <summary>
+    /// Synchronizes market assets by fetching them from the Finta API and updating the local repository.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token</param>
     public async Task SyncAsync(CancellationToken cancellationToken)
     {
         using var scope = _scopeFactory.CreateScope();

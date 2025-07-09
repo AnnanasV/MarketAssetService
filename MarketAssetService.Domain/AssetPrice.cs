@@ -1,10 +1,13 @@
-﻿namespace MarketAssetService.Domain;
+﻿using System.Text.Json.Serialization;
+
+namespace MarketAssetService.Domain;
 
 public class AssetPrice
 {
     public Guid Id { get; set; }
 
     public Guid AssetId { get; set; }
+    [JsonIgnore]
     public MarketAsset Asset { get; set; } = null!;
 
     public string Symbol { get; set; }

@@ -1,9 +1,6 @@
-﻿using MarketAssetService.Application.DTOs;
-using MarketAssetService.Application.Interfaces;
+﻿using MarketAssetService.Application.Interfaces;
 using MarketAssetService.Domain;
-using MarketAssetService.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace MarketAssetService.API.Controllers;
 

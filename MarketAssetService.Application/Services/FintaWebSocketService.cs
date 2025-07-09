@@ -27,6 +27,11 @@ public class FintaWebSocketService : BackgroundService
         _config = config;
     }
 
+    /// <summary>
+    /// Background service that connects to the Finta WebSocket API and processes incoming price messages.
+    /// </summary>
+    /// <param name="stoppingToken"></param>
+    /// <returns></returns>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
@@ -133,7 +138,7 @@ public class FintaWebSocketService : BackgroundService
     }
 
     /// <summary>
-    /// Add to database.
+    /// Adds or updates the price in the database based on the received WebSocket message.
     /// </summary>
     /// <param name="json"></param>
     /// <returns></returns>

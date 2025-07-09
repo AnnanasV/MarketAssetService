@@ -3,12 +3,13 @@ using MarketAssetService.Application.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Text.Json;
 
 namespace MarketAssetService.Infrastructure.Services;
 
+/// <summary>
+/// Service responsible for handling authentication with the Finta API and caching the access token.
+/// </summary>
 public class AuthService : IAuthService
 {
     private readonly HttpClient _httpClient;
@@ -67,7 +68,6 @@ public class AuthService : IAuthService
         response.EnsureSuccessStatusCode();
 
         var json = await response.Content.ReadAsStringAsync();
-        _logger.LogInformation($"Response content: {json}");
 
         var result = JsonSerializer.Deserialize<AuthTokenResponse>(json);
 
